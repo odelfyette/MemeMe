@@ -46,11 +46,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         
         unsubscribeToKeyboardNotifications()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     //MARK: Configuration
     
@@ -59,6 +54,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         textField.defaultTextAttributes = memeTextAttribute
         textField.text = textString
         textField.textAlignment = NSTextAlignment.center
+    }
+    
+    func setSourceType(_ sourceType: UIImagePickerControllerSourceType){
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.sourceType = sourceType
+        self.present(pickerController, animated: true, completion: nil)
     }
     
     //MARK: Save and Cancel Actions
@@ -71,23 +73,23 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     func save(){
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+        if let topTest = topTextField.text{
+            if let bottomText = bottomTextField.text{
+                if let image = imagePickerView.image{
+                let meme = Meme(topText: topTest, bottomText: bottomText, originalImage: image, memedImage: generateMemedImage())
+                }
+            }
+        }
     }
     
     //MARK: Image Actions
     
     @IBAction func pickAnImage(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = .photoLibrary
-        self.present(pickerController, animated: true, completion: nil)
+        setSourceType(.photoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = .camera
-        self.present(pickerController, animated: true, completion: nil)
+        setSourceType(.camera)
     }
     
     @IBAction func shareImage(_ sender: Any){
