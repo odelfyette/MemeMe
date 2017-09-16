@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, UINavigationControllerDelegate {
     
     //MARK: Properties
     @IBOutlet weak var topToolBarControl: UIToolbar!
@@ -30,16 +30,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        topTextField.delegate = self
-        bottomTextField.delegate = self
-        topTextField.defaultTextAttributes = memeTextAttribute
-        bottomTextField.defaultTextAttributes = memeTextAttribute
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        topTextField.textAlignment = NSTextAlignment.center
-        bottomTextField.textAlignment = NSTextAlignment.center
-
+        configureTextFoelds(topTextField, withString: "TOP")
+        configureTextFoelds(bottomTextField, withString: "BOTTOM")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +50,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: Configuration
+    
+    func configureTextFoelds(_ textField: UITextField, withString textString: String){
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttribute
+        textField.text = textString
+        textField.textAlignment = NSTextAlignment.center
     }
     
     //MARK: Save and Cancel Actions
@@ -95,31 +96,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.present(shareController, animated: true, completion: {()
             self.save()
         })
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        dismiss(animated: true, completion: nil)
-        
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
-            imagePickerView.image = image
-            shareButton.isEnabled = true
-        }
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    //MARK: Text Actions
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.text = ""
     }
     
     //MARK: Keyboard Actions
@@ -163,6 +139,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         topToolBarControl.isHidden = false;
         
         return memedImage
+    }
+}
+
+extension ViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
+}
+
+extension ViewController: UIImagePickerControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        dismiss(animated: true, completion: nil)
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
+            imagePickerView.image = image
+            shareButton.isEnabled = true
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
