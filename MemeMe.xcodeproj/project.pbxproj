@@ -12,6 +12,7 @@
 		D6C2DD0A1F6704260007EB01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6C2DD081F6704260007EB01 /* Main.storyboard */; };
 		D6C2DD0C1F6704260007EB01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6C2DD0B1F6704260007EB01 /* Assets.xcassets */; };
 		D6C2DD0F1F6704260007EB01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6C2DD0D1F6704260007EB01 /* LaunchScreen.storyboard */; };
+		D6C2DD171F6919060007EB01 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2DD161F6919060007EB01 /* Meme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D6C2DD0B1F6704260007EB01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6C2DD0E1F6704260007EB01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6C2DD101F6704260007EB01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6C2DD161F6919060007EB01 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				D6C2DD0B1F6704260007EB01 /* Assets.xcassets */,
 				D6C2DD0D1F6704260007EB01 /* LaunchScreen.storyboard */,
 				D6C2DD101F6704260007EB01 /* Info.plist */,
+				D6C2DD161F6919060007EB01 /* Meme.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -96,6 +99,7 @@
 				TargetAttributes = {
 					D6C2DD001F6704260007EB01 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = AB3DGFVC8Y;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -136,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6C2DD171F6919060007EB01 /* Meme.swift in Sources */,
 				D6C2DD071F6704260007EB01 /* ViewController.swift in Sources */,
 				D6C2DD051F6704260007EB01 /* AppDelegate.swift in Sources */,
 			);
@@ -262,6 +267,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AB3DGFVC8Y;
 				INFOPLIST_FILE = MemeMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.delfyettedesigns.MemeMe;
@@ -274,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AB3DGFVC8Y;
 				INFOPLIST_FILE = MemeMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.delfyettedesigns.MemeMe;
@@ -301,6 +308,7 @@
 				D6C2DD151F6704260007EB01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
