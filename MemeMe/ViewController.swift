@@ -95,9 +95,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     @IBAction func shareImage(_ sender: Any){
         memedImage = generateMemedImage()
         let shareController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        self.present(shareController, animated: true, completion: {()
-            self.save()
-        })
+        shareController.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
+            if completed == true {
+                self.save()
+                print("Saved")
+            }
+        }
+        
+        self.present(shareController, animated: true, completion: nil)
     }
     
     //MARK: Keyboard Actions
