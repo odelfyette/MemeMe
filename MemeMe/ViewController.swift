@@ -63,6 +63,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         self.present(pickerController, animated: true, completion: nil)
     }
     
+    func setToolBarVisability(isHidden: Bool){
+        toolbarControl.isHidden = isHidden
+        topToolBarControl.isHidden = isHidden
+    }
+    
     //MARK: Save and Cancel Actions
     
     @IBAction func cancel(_ sender: Any){
@@ -134,16 +139,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     //MARK: Meme Generator
     func generateMemedImage() -> UIImage{
         
-        toolbarControl.isHidden = true;
-        topToolBarControl.isHidden = true;
+        setToolBarVisability(isHidden: true)
         
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        toolbarControl.isHidden = false;
-        topToolBarControl.isHidden = false;
+        setToolBarVisability(isHidden: false)
         
         return memedImage
     }
