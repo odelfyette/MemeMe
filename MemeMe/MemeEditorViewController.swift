@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UINavigationControllerDelegate {
+class MemeEditorViewController: UIViewController, UINavigationControllerDelegate {
     
     //MARK: Properties
     @IBOutlet weak var topToolBarControl: UIToolbar!
@@ -30,8 +30,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTextFoelds(topTextField, withString: "TOP")
-        configureTextFoelds(bottomTextField, withString: "BOTTOM")
+        configureTextFields(topTextField, withString: "TOP")
+        configureTextFields(bottomTextField, withString: "BOTTOM")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +49,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     
     //MARK: Configuration
     
-    func configureTextFoelds(_ textField: UITextField, withString textString: String){
+    func configureTextFields(_ textField: UITextField, withString textString: String){
         textField.delegate = self
         textField.defaultTextAttributes = memeTextAttribute
         textField.text = textString
@@ -75,6 +75,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         bottomTextField.text = "BOTTOM"
         memedImage = nil
         imagePickerView.image = nil
+        shareButton.isEnabled = false
     }
     
     func save(){
@@ -113,7 +114,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     //MARK: Keyboard Actions
     
     func keyboardWillShow(notification: NSNotification){
-        self.view.frame.origin.y = 0 - getKeyboardHeight(notification: notification)
+        if bottomTextField.isFirstResponder{
+            self.view.frame.origin.y = 0 - getKeyboardHeight(notification: notification)
+        }
     }
     
     func keyboardWillHide(notification: NSNotification){
@@ -127,8 +130,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     func subcribeToKeyboardNotificiations(){
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func unsubscribeToKeyboardNotifications(){
@@ -152,7 +155,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
 }
 
-extension ViewController: UITextFieldDelegate{
+extension MemeEditorViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         return true
@@ -160,11 +163,13 @@ extension ViewController: UITextFieldDelegate{
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.text = ""
+        if(textField.text == "TOP" || textField.text == "BOTTOM"){
+            textField.text = ""
+        }
     }
 }
 
-extension ViewController: UIImagePickerControllerDelegate{
+extension MemeEditorViewController: UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
         
