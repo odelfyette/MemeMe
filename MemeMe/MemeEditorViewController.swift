@@ -82,7 +82,9 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         if let topTest = topTextField.text{
             if let bottomText = bottomTextField.text{
                 if let image = imagePickerView.image{
-                let meme = Meme(topText: topTest, bottomText: bottomText, originalImage: image, memedImage: generateMemedImage())
+                    let meme = Meme(topText: topTest, bottomText: bottomText, originalImage: image, memedImage: generateMemedImage())
+                    
+                    (UIApplication.shared.delegate as! AppDelegate).memes.append(meme)
                 }
             }
         }
