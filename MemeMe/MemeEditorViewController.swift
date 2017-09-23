@@ -19,6 +19,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var toolbarControl: UIToolbar!
     var memedImage: UIImage!
+    var setMeme: Meme?
     
     let memeTextAttribute: [String: Any] = [
         NSStrokeColorAttributeName: UIColor.black,
@@ -36,9 +37,15 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         subcribeToKeyboardNotificiations()
+        
+        if let setMeme = self.setMeme{
+            topTextField.text = setMeme.topText
+            bottomTextField.text = setMeme.bottomText
+            memedImage = setMeme.memedImage
+            imagePickerView.image = setMeme.originalImage
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -83,7 +90,6 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
             if let bottomText = bottomTextField.text{
                 if let image = imagePickerView.image{
                     let meme = Meme(topText: topTest, bottomText: bottomText, originalImage: image, memedImage: generateMemedImage())
-                    
                     (UIApplication.shared.delegate as! AppDelegate).memes.append(meme)
                 }
             }
@@ -106,7 +112,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         shareController.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
             if completed == true {
                 self.save()
-                print("Saved")
+                self.dismiss(animated: true, completion: nil)
             }
         }
         
