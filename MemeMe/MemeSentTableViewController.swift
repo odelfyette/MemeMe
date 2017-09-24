@@ -17,11 +17,6 @@ class MemeSentTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        //self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +30,7 @@ extension MemeSentTableViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
         detailController.setMeme = memes[indexPath.row]
-        self.present(detailController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(detailController, animated: true)
     }
 }
 
@@ -47,11 +42,14 @@ extension MemeSentTableViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MemeTableCell")!
         let meme = memes[indexPath.row]
-        
-        cell.textLabel?.text = "\(meme.topText!)...\(meme.bottomText!)"
-        cell.imageView?.image = meme.memedImage
-        
+        cell.setupCellWith(meme: meme)
         return cell
     }
+}
 
+extension  UITableViewCell{
+    func setupCellWith(meme: Meme){
+        self.textLabel?.text = "\(meme.topText!)...\(meme.bottomText!)"
+        self.imageView?.image = meme.memedImage
+    }
 }

@@ -11,6 +11,8 @@ import UIKit
 class MemeEditorViewController: UIViewController, UINavigationControllerDelegate {
     
     //MARK: Properties
+    
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var topToolBarControl: UIToolbar!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var imagePickerView: UIImageView!
@@ -45,12 +47,16 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
             bottomTextField.text = setMeme.bottomText
             memedImage = setMeme.memedImage
             imagePickerView.image = setMeme.originalImage
+            cancelButton.isEnabled = false
+            shareButton.isEnabled = true
+        }else{
+            cancelButton.isEnabled = true
+            shareButton.isEnabled = false
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         unsubscribeToKeyboardNotifications()
     }
     
@@ -78,11 +84,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     //MARK: Save and Cancel Actions
     
     @IBAction func cancel(_ sender: Any){
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        memedImage = nil
-        imagePickerView.image = nil
-        shareButton.isEnabled = false
+        self.dismiss(animated: true, completion: nil)
     }
     
     func save(){
