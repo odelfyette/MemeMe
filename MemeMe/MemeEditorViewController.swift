@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMe
 //
 //  Created by Octavius Delfyette on 9/11/17.
@@ -51,7 +51,6 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
             shareButton.isEnabled = true
         }else{
             cancelButton.isEnabled = true
-            shareButton.isEnabled = false
         }
     }
     
